@@ -1,0 +1,22 @@
+{
+  "name": "js13kgames-2021",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "serve public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kitanga/js13kgames-2021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kitanga/js13kgames-2021/issues"
+  },
+  "homepage": "https://github.com/Kitanga/js13kgames-2021#readme",
+  "devDependencies": {
+    "serve": "^12.0.0"
+  }
+}
