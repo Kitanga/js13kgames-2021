@@ -33,9 +33,58 @@ export class PageManager {
 	};
 
 	/**
+	 * The container that holds all the pages
+	 * @param {string} pageContainerID Page container ID
+	 */
+	registerPage = (pageContainerID) => {
+		this.pageContainer = document.getElementById(pageContainerID);
+
+		if (this.pageContainer) {
+			this.pageContainer.querySelectorAll('.page').forEach(page => {
+				const callbackName = page.getAttribute('data-startUpMethod');
+
+				if (callbackName) {
+					this.getAction(callbackName, (action) => {
+						this.add(page.id, action);
+					});
+				} else {
+					this.add(page.id);
+				}
+			});
+		}
+	}
+
+	setAction(actionName, action) {
+		if (action) {
+			this.actions[actionName] = action;
+		} else {
+			throw new Error("Please set the action function");
+		}
+	}
+
+	/**
+	 * Get the element by ID and add it as a page to the manager
+	 * @param {string} childElementID A callback name
+	 * @param {Function} [actionFoundCallback] A function that runs when a call is found
+	 *
+	 * @private
+	 */
+	getAction(callbackName, actionFoundCallback) {
+		const callback = this.actions[callbackName];
+
+		if (callback) {
+			actionFoundCallback(callback || function () {});
+		} else {
+			throw new Error(`The action name, ${callbackName}, doesn't exist in PageManager.actions`);
+		}
+	}
+
+	/**
 	 * Get the element by ID and add it as a page to the manager
 	 * @param {string} childElementID The element's ID
 	 * @param {Function} [startupMethod] A function that will be run after showing page
+	 *
+	 * @private
 	 */
 	add = (childElementID, startupMethod) => {
 		const element = document.getElementById(childElementID);
@@ -47,10 +96,20 @@ export class PageManager {
 		if (!element.classList.contains(PageClassNames.PAGE)) {
 			throw new Error("This element needs to have the .page class name");
 		}
-		
+
+		let callBack = function () {};
+
+		if (typeof startupMethod == 'string') {
+			this.getAction(startupMethod, (action) => {
+				callBack = action;
+			});
+		} else if (typeof startupMethod == 'function') {
+			callBack = startupMethod;
+		}
+
 		this.pages.set(childElementID, {
 			target: element,
-			startupMethod
+			startupMethod: callBack
 		});
 
 		// Register onclick events for elements with the custom prop
@@ -58,13 +117,9 @@ export class PageManager {
 			const callbackName = ele.getAttribute('data-onclick');
 
 			if (callbackName) {
-				const callback = this.actions[callbackName];
-
-				if (callback) {
-					ele.onclick = callback || function () {};
-				} else {
-					throw new Error(`The action name, ${callbackName}, doesn't exist in PageManager.actions`);
-				}
+				this.getAction(callbackName, (action) => {
+					ele.onclick = action;
+				});
 			}
 		});
 	}
