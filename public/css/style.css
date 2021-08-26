@@ -31,6 +31,7 @@ body {
 	top: 0;
 	left: 0;
 	display: none;
+	background: transparent;
 }
 
 .page.active {
@@ -43,3 +44,56 @@ body {
 }
 
 /* #endregion END Pages Styles */
+
+
+/* Positioning of images */
+#background {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(180deg, #1D1135 0%, #0C164F 100%);
+}
+
+#background img {
+	position: absolute;
+	/* transform: scale(0.23); */
+}
+
+#moon {
+	width: 159px;
+	height: 159px;
+	opacity: 0.4;
+	left: -20%;
+	right: 63.11%;
+	top: 44.24%;
+	bottom: 23.64%;
+}
+#saturn {
+	width: 114px;
+	height: 69px;
+	opacity: 0.4;
+	right: 10%;
+	top: 15%;
+}
+#capsule {
+	width: 91px;
+	height: 129px;
+	opacity: 0.4;
+	left: 67.75%;
+	right: 11.14%;
+	top: 73.94%;
+	bottom: 0%;
+}
+#aura {
+	width: 643px;
+	height: 496px;
+	left: -161.67px;
+	top: -132.27px;
+	opacity: 0.4;
+}
+#aura2 {
+	width: 643px;
+	height: 496px;
+	left: -211px;
+	top: 402px;
+	opacity: 0.4;
+}
