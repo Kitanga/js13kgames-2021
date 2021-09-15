@@ -4,96 +4,97 @@
 
 /* #region General Styles*/
 
-html, body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 /* #endregion General Styles*/
 
 /* #region Pages Styles */
 #pages {
-	width: 100%;
-	height: 100%;
-	position: relative;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .page {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: none;
-	background: transparent;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  background: transparent;
 }
 
 .page.active {
-	display: flex;
+  display: flex;
 }
 
 .page.centered {
-	align-items: center;
-	justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 /* #endregion END Pages Styles */
 
-
 /* Positioning of images */
 #background {
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(180deg, #1D1135 0%, #0C164F 100%);
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #1d1135 0%, #0c164f 100%);
 }
 
 #background img {
-	position: absolute;
-	/* transform: scale(0.23); */
+  position: absolute;
+  /* transform: scale(0.23); */
 }
 
 #moon {
-	width: 159px;
-	height: 159px;
-	opacity: 0.4;
-	left: -20%;
-	right: 63.11%;
-	top: 44.24%;
-	bottom: 23.64%;
+  width: 159px;
+  height: 159px;
+  opacity: 0.4;
+  left: -20%;
+  right: 63.11%;
+  top: 44.24%;
+  bottom: 23.64%;
 }
 #saturn {
-	width: 114px;
-	height: 69px;
-	opacity: 0.4;
-	right: 10%;
-	top: 15%;
+  width: 114px;
+  height: 69px;
+  opacity: 0.4;
+  right: 10%;
+  top: 15%;
 }
 #capsule {
-	width: 91px;
-	height: 129px;
-	opacity: 0.4;
-	left: 67.75%;
-	right: 11.14%;
-	top: 73.94%;
-	bottom: 0%;
+  width: 91px;
+  height: 129px;
+  opacity: 0.4;
+  left: 67.75%;
+  right: 11.14%;
+  top: 73.94%;
+  bottom: 0%;
 }
 #aura {
-	width: 643px;
-	height: 496px;
-	left: -161.67px;
-	top: -132.27px;
-	opacity: 0.4;
+  width: 643px;
+  height: 496px;
+  left: -161.67px;
+  top: -132.27px;
+  opacity: 0.9;
 }
 #aura2 {
-	width: 643px;
-	height: 496px;
-	left: -211px;
-	top: 402px;
-	opacity: 0.4;
+  width: 643px;
+  height: 496px;
+  left: -211px;
+  top: 402px;
+  opacity: 0.2;
 }
