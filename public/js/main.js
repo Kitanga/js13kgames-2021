@@ -7,10 +7,7 @@ const Game = new Engine();
 // Game.pageManager.add('loader');
 // Game.pageManager.add('menu');
 
-// Register the actions that will run for each page
-Game.pageManager.setAction('onShowMenu', () => {
-	console.log('Hello');
-});
+Game.setupActions();
 
 // Then register the pages' container
 Game.pageManager.registerPage('pages');
