@@ -1,0 +1,17 @@
+.loader-border {
+	width: 41.06%;
+	height: 2.24%;
+	
+	border: 2px solid #FFFFFF;
+	box-sizing: border-box;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.loader-bar {
+	background: #EABE24;
+	width: 2%;
+	height: 100%;
+	will-change: width;
+	transition: width 0.25s;
+}

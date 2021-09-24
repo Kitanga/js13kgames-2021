@@ -10,14 +10,15 @@ export class AssetLoader {
 	 */
 	assetList = [];
 	/**
-	 * @type { [string[], Loader][] }
+	 * @type { { extensions: string[], loader: ((blob: Blob) => any)}[] }
 	 * @private
 	 */
 	supportedExtensions = [
-		[
-			['.png', '.jpg', '.svg'],
-			ImageLoader
-		]
+		// TODO: change this to use an object with `extensions` and `loader` as the props
+		{
+			extensions: ['.png', '.jpg', '.svg'],
+			loader: ImageLoader
+		}
 	];
 	/**
 	 * @type { number }
@@ -32,17 +33,18 @@ export class AssetLoader {
 
 	/**
 	 * @param { string } assetConfig
-	 * @param { [string[], ImageLoader][] } supportedExtensions
+		// TODO: change this to use an object with `extensions` and `loader` as the props
+	 * @param { { extensions: string[], loader: ((blob: Blob) => any)}[] } supportedExtensions
 	 * @private
 	 */
 	getLoader = (assetLink, supportedExtensions) => {
 		const extensionLoaderMap = supportedExtensions.find(extensionLoaderMap => {
-			return !!extensionLoaderMap[0].find(extension => {
+			return !!extensionLoaderMap.extensions.find(extension => {
 				return assetLink.includes(extension);
 			});
 		});
 		
-		return extensionLoaderMap[1];
+		return extensionLoaderMap.loader;
 	};
 	/**
 	 * @param { string } key
@@ -93,19 +95,29 @@ export class AssetLoader {
 		}
 	}
 
+	/**
+	 * Adds a file we plan to load into the game
+	 * @param {string} key 
+	 * @param {string} link 
+	 */
 	add = (key, link) => {
-		if (!!this.getLoader(link)) {
+		if (!!this.getLoader(link, this.supportedExtensions)) {
 			this.assetList.push([key, link]);
 		} else {
 			throw new Error(`Failed to add asset with key ${key} and link ${link} to AssetLoader, because the file type is not supported.`);
 		}
 	}
 
+	/**
+	 * Loads assets in the assetList
+	 * 
+	 * @private
+	 */
 	loadAssets = () => {
 		this.assetList.forEach(assetConfig => {
+			const assetLink = assetConfig[1];
 			const loader = this.getLoader(assetLink, this.supportedExtensions);
 			const key = assetConfig[0];
-			const assetLink = assetConfig[1];
 
 			fetch(assetLink, {
 					method: 'GET'
@@ -120,6 +132,11 @@ export class AssetLoader {
 		});
 	}
 
+	/**
+	 * Update progress
+	 * 
+	 * @private
+	 */
 	updateProgress = () => {
 		// Update the progress value
 		this.progress = this.loadedAssetsCount / this.totalAssetsCount;
