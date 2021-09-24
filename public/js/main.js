@@ -2,18 +2,39 @@ import { Engine } from './Engine/Engine.js';
 
 const Game = new Engine();
 
-// Register the pages
-// TODO: add a method of just collecting all the pages from a container/wrapper element. This way we just create the html and don't have to worry about registering pages
-// Game.pageManager.add('loader');
-// Game.pageManager.add('menu');
+Game.setupActions();
 
-// Register the actions that will run for each page
-Game.pageManager.setAction('onShowMenu', () => {
-	console.log('Hello');
-});
+const loader = Game.assetLoader;
+
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+loader.add('capsule', 'Assets/capsule.svg');
+
+loader.onComplete = (assetLoader) => {
+	console.log('We are done loading assets!!');
+	Game.pageManager.use('menu');
+};
+
+const loaderBar = document.getElementById('loader-bar');
+loader.onProgress = (progress) => {
+	console.log(`Progress: ${progress * 100}%`);
+	loaderBar.style.width = `${progress * 100}%`;
+};
+
+loader.start();
 
 // Then register the pages' container
 Game.pageManager.registerPage('pages');
 
 // Tell the game to show the menu page
-Game.pageManager.use('menu');
+Game.pageManager.use('loader');

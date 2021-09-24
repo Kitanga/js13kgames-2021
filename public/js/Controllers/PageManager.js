@@ -29,7 +29,7 @@ export class PageManager {
 		},
 		goToLoader: () => {
 			this.use('loader');
-		},
+		}
 	};
 
 	/**
@@ -51,6 +51,8 @@ export class PageManager {
 					this.add(page.id);
 				}
 			});
+		} else {
+			throw new Error(`Failed to register main pages element. Remember, an element with ID = ${pageContainerID} should exist in html page`);
 		}
 	}
 
