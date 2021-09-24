@@ -1,40 +1,53 @@
+/**
+ * Downloads and caches game assets
+ */
 export class AssetLoader {
 	/**
+	 * We'll store the downloaded assets in this cache
+	 * 
 	 * @type { { [key:string]: HTMLImageElement | HTMLAudioElement } }
 	 * @private
 	 */
 	cache = {};
 	/**
+	 * The list of assets we'll be loading
+	 * 
 	 * @type { [string, string][] }
 	 * @private
 	 */
 	assetList = [];
 	/**
+	 * An array containing supported file extensions and the loaders we'll use to process them.
+	 * 
 	 * @type { { extensions: string[], loader: ((blob: Blob) => any)}[] }
 	 * @private
 	 */
 	supportedExtensions = [
-		// TODO: change this to use an object with `extensions` and `loader` as the props
 		{
 			extensions: ['.png', '.jpg', '.svg'],
 			loader: ImageLoader
 		}
 	];
 	/**
+	 * The total number of assets being loaded
+	 * 
 	 * @type { number }
 	 * @private
 	 */
 	totalAssetsCount = 0;
 	/**
+	 * How many assets have already been loaded
+	 * 
 	 * @type { number }
 	 * @private
 	 */
 	loadedAssetsCount = 0;
 
 	/**
-	 * @param { string } assetConfig
-		// TODO: change this to use an object with `extensions` and `loader` as the props
-	 * @param { { extensions: string[], loader: ((blob: Blob) => any)}[] } supportedExtensions
+	 * Returns a loader function for processing the linked resource
+	 * 
+	 * @param { string } assetLink The resource link to the asset (can be relative or absolute)
+	 * @param { { extensions: string[], loader: ((blob: Blob) => any)}[] } supportedExtensions An array containing supported file extensions and the loaders we'll use to process them.
 	 * @private
 	 */
 	getLoader = (assetLink, supportedExtensions) => {
@@ -47,8 +60,10 @@ export class AssetLoader {
 		return extensionLoaderMap.loader;
 	};
 	/**
-	 * @param { string } key
-	 * @param { HTMLImageElement | HTMLAudioElement } asset
+	 * Adds the loaded and processed asset to the asset loader's cache
+	 * 
+	 * @param { string } key The unique string we'll use to store the game object into the cache
+	 * @param { HTMLImageElement | HTMLAudioElement } asset The object returned from the loader that we'll be caching
 	 * @private
 	 */
 	addToCache = (key, asset) => {
@@ -58,14 +73,16 @@ export class AssetLoader {
 	// These are event methods
 	/**
 	 * Runs when all assets have been loaded
-	 * @param { AssetLoader } assetLoader 
+	 * 
+	 * @param { AssetLoader } assetLoader A reference to the Asset loader instance
 	 */
 	onComplete = (assetLoader) => {
 		console.log('Assets done loading');
 	}
 	/**
 	 * Runs when a file has finished loading
-	 * @param { number } progress 
+	 * 
+	 * @param { number } progress A number between 0 and 1 (percentage)
 	 */
 	onProgress = (progress) => {
 		console.log('An asset has been loaded loading');
@@ -97,8 +114,9 @@ export class AssetLoader {
 
 	/**
 	 * Adds a file we plan to load into the game
-	 * @param {string} key 
-	 * @param {string} link 
+	 * 
+	 * @param {string} key The unique string we'll use to store the game object into the cache
+	 * @param {string} link The relative link to the asset (Can also be absolute, but be careful with using absolute values)
 	 */
 	add = (key, link) => {
 		if (!!this.getLoader(link, this.supportedExtensions)) {
@@ -150,8 +168,9 @@ export class AssetLoader {
 }
 
 /**
+ * This processes the loaded content and returns a game usable cachable object
  * 
- * @param { Blob } blob 
+ * @param { Blob } blob A file received from the server as a blob
  */
 export function ImageLoader(blob) {
 	const img = new Image();
