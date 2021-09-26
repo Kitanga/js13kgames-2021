@@ -98,9 +98,17 @@ body {
   top: 402px;
   opacity: 0.2;
 }
+
+.logo {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #logo {
   /* left: 42.23%; */
-  right: 20.51%;
-  top: 18.72%;
+  /* right: 20.51%;
+  top: 18.72%; */
   /* bottom: 71.31%; */
 }
